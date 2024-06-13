@@ -32,56 +32,37 @@ function oldScrabbleScorer(word) {
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
 
-// function initialPrompt() {
-//    word = input.question("Let's play some scrabble! Enter a word: ");
-//    // points = oldScrabbleScorer(word);
-//    // console.log(points);
-//    return word;
-// };
-
-
-const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~0123456789]/;
 function initialPrompt() {
-	let word = input.question("Let's play some scrabble! Enter a word to score: ");
-	while (specialChars.test(word)) {
-		word = input.question("\nInvalid input! Enter a word to score: ");
-	}
-	return word;
-}
+   word = input.question("Let's play some scrabble! Enter a word: ");
+   points = oldScrabbleScorer(word);
+   console.log(points);
+   return word;
+};
+
 
 //let simpleScorer;
-// function simpleScorer(word) {
-//    word = word.toUpperCase();
-//    let score = 0;
-//    for (i=0; i<word.length; i++) {
-//       score += 1;
-//    }
-//    return score;
-// }
-
 function simpleScorer(word) {
-   let score = word.length;
+   word = word.toUpperCase();
+   let score = 0;
+   for (i=0; i<word.length; i++) {
+      score += 1;
+   }
    return score;
- }
+}
 
 //let vowelBonusScorer;
 function vowelBonusScorer(word) {
    word = word.toUpperCase();
-   // 43
-   let vowels = ['A', 'E', 'I', 'O', 'U'];
+   let vowels = ['A', 'E', 'I', 'O', 'U', 'Y']
    let score = 0;
-   let num = /^[0-9]+$/;
    for (i=0; i<word.length; i++) {
       if(vowels.includes(word[i])) {
          score +=3;
-      } else if(word.match(num)){
-         score +=0;
-         console.log("Invalid input. Cannot accept numbers");
       } else {
          score +=1;
       }
    }
-   return score;
+   return score
 }
 
 //let scrabbleScorer;
@@ -129,25 +110,23 @@ function scorerPrompt() {
    //return scoringAlgorithms[scorerToUse];
 
     // Display each algorithm in the scoringAlgorithms array
-   // let word = initialPrompt();
-   console.log("\nAvailable Scoring Algorithms:\n");
+   console.log("Available Scoring Algorithms:\n");
    for (let i = 0; i < scoringAlgorithms.length; i++) {
      console.log(`${i}: ${scoringAlgorithms[i].name}. ${scoringAlgorithms[i].description}`);
    }
+  
    let scorerToUse = input.question("\nWhich scoring algorithm would you like to use? \nEnter 0, 1, or 2: ");
    scorerToUse = Number(scorerToUse)
   while
    (scorerToUse < 0 || scorerToUse > 2 || isNaN(scorerToUse)){
-    scorerToUse = input.question("\nInvalid input. Please enter the number beetween 0 and 2: ");
+    scorerToUse = input.question("Invalid input. Please enter the number beetween 0 and 2: ");
     scorerToUse = Number(scorerToUse)
    }
    console.log(`\nYour choice is ${scoringAlgorithms[scorerToUse].name} Algorithm.`);
-//   console.log (`\nScore for your word '${word}': ${scoringAlgorithms[scorerToUse].scorerFunction(word)}`);
-  return scoringAlgorithms[scorerToUse];// one scorerFunction;
+  console.log (`\nScore for your word '${word}': ${scoringAlgorithms[scorerToUse].scorerFunction(word)}`);
 }
 
 let newPointStructure = transform(oldPointStructure);
-newPointStructure[' '] = 0;
 //function transform() {};
 function transform(obj) {
    newScrabbleScorer = {};
@@ -162,8 +141,8 @@ function transform(obj) {
 
 
 function runProgram() {
-   let word = initialPrompt();
-   console.log (`\nScore for your word '${word}': ${scorerPrompt().scorerFunction(word)}`);
+   initialPrompt();
+   scorerPrompt();
 }
 
 // Don't write any code below this line //
